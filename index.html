@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Matrix Engineers Lab is a free, student-led engineering education initiative in South Windsor, Connecticut.">
+<style>:root{color-scheme:light}html{scroll-behavior:auto}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Matrix Engineers Lab</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: sticky tab bar over single-view pages, blueprint-grid hero, drafting-sheet cards */
+:root{
+  --bg:#fdfafa; --surface:#ffffff; --ink:#2a0d12; --muted:#6b5358; --line:#e6d2d4;
+  --accent:#c8102e; --accent-ink:#ffffff; --signal:#9f1239; --grid:#f6eeee; --sky1:#ffffff; --sky2:#fdfafa;
+  --display:'Space Grotesk',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line);margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0 max(16px,env(safe-area-inset-left,0px))}
+.bar{display:flex;align-items:center;gap:20px;padding:10px 0;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font:600 18px var(--display)}
+.logo{width:38px;height:38px;flex:none}
+.logo img{display:block;width:100%;height:100%}
+nav{display:flex;gap:2px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
+nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font:500 14px var(--body);padding:8px 11px;border-radius:6px}
+nav a:hover{color:var(--ink)}
+nav a[aria-current="page"]{color:var(--ink);background:var(--surface);box-shadow:inset 0 -2px 0 var(--accent)}
+.view{display:none;padding-block:48px 72px}
+.view.on{display:block}
+.hero{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:56px max(16px,env(safe-area-inset-left,0px)) 48px;border-bottom:1px solid var(--line)}
+h1{font-size:clamp(34px,6vw,64px);font-weight:700;letter-spacing:-.02em;max-width:16ch}
+h1 span{color:var(--accent)}
+.lead{max-width:62ch;color:var(--muted);font-size:18px;margin:20px 0 28px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;font:600 15px var(--body);padding:12px 20px;border-radius:8px;border:1.5px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer}
+.btn.p{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:32px}
+.tag{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);background:var(--surface);padding:5px 10px;border-radius:999px}
+h2{font-size:clamp(26px,4vw,40px);margin:8px 0 16px}
+.sec{max-width:70ch;color:var(--muted)}
+.sec p{margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:28px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;min-width:0}
+.card h3{font-size:20px;margin:6px 0 8px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.status{display:inline-block;margin-top:14px;font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--signal)}
+.tbu{border:1.5px dashed var(--line);border-radius:10px;padding:40px 24px;text-align:center;margin-top:28px;background:var(--surface)}
+.tbu strong{font:600 22px var(--display);display:block;color:var(--ink)}
+.tbu span{color:var(--muted);font-size:14px}
+details{border-top:1px solid var(--line);padding:16px 0;max-width:70ch}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font:600 18px var(--display);list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::after{content:"+";color:var(--accent);font-size:22px;line-height:1}
+details[open] summary::after{content:"\2212"}
+details p{margin:10px 0 0;color:var(--muted)}
+form{display:grid;gap:16px;max-width:560px;margin-top:28px}
+label{display:grid;gap:6px;font:500 14px var(--body)}
+input,select,textarea{font:16px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:11px 12px;width:100%}
+.note{font-size:13px;color:var(--muted)}
+#msg{padding:14px 16px;border:1px solid var(--accent);border-radius:8px;max-width:560px;margin-top:16px}
+footer{border-top:1px solid var(--line);padding-block:32px 40px;color:var(--muted);font-size:14px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;margin:0 auto;max-width:1080px}
+footer b{color:var(--ink);font-family:var(--display)}
+.copy{font:inherit;background:none;border:0;color:var(--accent);cursor:pointer;text-decoration:underline;padding:0}
+@media (prefers-reduced-motion:no-preference){.view.on{animation:in .25s ease-out}@keyframes in{from{opacity:.0;transform:translateY(6px)}to{opacity:1;transform:none}}}
+body{position:relative;overflow-x:clip;min-height:100vh}
+main,footer{position:relative;z-index:1}
+.deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.deco i{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(200,16,46,.13),rgba(200,16,46,0) 68%)}
+.deco svg{position:absolute;filter:blur(12px);opacity:.28}
+.b1{width:520px;height:520px;top:-140px;right:-120px}
+.b2{width:340px;height:340px;top:34%;left:-130px}
+.b3{width:420px;height:420px;top:58%;right:8%;opacity:.6}
+.b4{width:260px;height:260px;top:12%;left:38%;opacity:.6}
+.b5{width:380px;height:380px;bottom:-120px;left:12%}
+.w1{width:900px;top:20%;left:-180px;transform:rotate(-8deg)}
+.w2{width:760px;bottom:6%;right:-220px;transform:rotate(6deg) scaleX(-1)}
+.w3{width:560px;top:48%;left:46%;transform:rotate(14deg);opacity:.2}
+@media (prefers-reduced-motion:no-preference){.deco i,.deco svg{animation:drift 18s ease-in-out infinite alternate}.b2,.w2{animation-duration:24s}.b4,.w3{animation-duration:30s}@keyframes drift{from{translate:0 0}to{translate:18px -22px}}}
+</style>
+
+</head>
+<body>
+<header>
+ <div class="wrap bar">
+  <a class="brand" href="#home" aria-label="Matrix Engineers Lab home">
+   <span class="logo" aria-hidden="true"><img src="data:image/png;base64,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" alt=""></span>
+   Matrix Engineers Lab
+  </a>
+  <nav aria-label="Main">
+   <a href="#home">Home</a><a href="#our-story">Our Story</a><a href="#our-team">Our Team</a><a href="#pathways">Pathways</a><a href="#build-lab">Build Lab</a><a href="#horizon">On the Horizon</a><a href="#mentors">Mentors</a><a href="#toolkit">Toolkit</a><a href="#field-notes">Field Notes</a><a href="#partners">Partners</a><a href="#faq">FAQ</a><a href="#join">Join</a>
+  </nav>
+ </div>
+</header>
+
+<div class="deco" aria-hidden="true">
+ <i class="b1"></i><i class="b2"></i>
+ <svg class="w1" viewBox="0 0 900 200"><defs><linearGradient id="wg" x1="0" x2="1"><stop offset="0" stop-color="#c8102e" stop-opacity="0"/><stop offset=".5" stop-color="#c8102e" stop-opacity=".35"/><stop offset="1" stop-color="#e0485f" stop-opacity="0"/></linearGradient></defs><path d="M0 90C150 20 300 150 450 80S750 20 900 100V200H0Z" fill="url(#wg)"/></svg>
+ <svg class="w2" viewBox="0 0 900 200"><path d="M0 110C160 40 280 160 450 90S760 30 900 110V200H0Z" fill="url(#wg)"/></svg>
+</div>
+<main>
+<section class="view" id="home">
+ <div class="hero">
+  <div class="wrap">
+   <p class="mono">Free student engineering program · South Windsor, Connecticut</p>
+   <h1>Many Minds. <span>One Future.</span></h1>
+   <p class="lead">Matrix Engineers is a free, student-led engineering education initiative from South Windsor, Connecticut. From aircraft and structures to circuits and clean water, discover how engineering shapes our world, explore your interests, and develop ideas with people who bring a different perspective.</p>
+   <div class="btns"><a class="btn p" href="#join">Join the community</a><a class="btn" href="#pathways">Explore learning pathways</a></div>
+   <div class="tags"><span class="tag">Aerospace</span><span class="tag">Mechanical</span><span class="tag">Civil</span><span class="tag">Electrical</span><span class="tag">Software</span><span class="tag">Environmental</span></div>
+  </div>
+ </div>
+ <div class="wrap" style="padding-top:48px">
+  <p class="mono">The club</p>
+  <h2>Engineering is better when we do it together.</h2>
+  <div class="sec"><p>Matrix Engineers is a Connecticut-based STEM organization run by students, for students. Our engineering education is free, open to every experience level, and focused on helping you discover what engineers actually do.</p>
+  <p>No experience needed. Just curiosity.</p></div>
+  <div class="grid">
+   <div class="card"><p class="mono">Free</p><h3>Open to every student</h3><p>No cost and no prior experience required.</p></div>
+   <div class="card"><p class="mono">Six fields</p><h3>Find your fit</h3><p>Explore aerospace, mechanical, civil, electrical, software and environmental engineering.</p></div>
+   <div class="card"><p class="mono">Student-led</p><h3>Mentorship from peers</h3><p>Learn from students who have walked the path a little further.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="view wrap" id="our-story">
+ <p class="mono">About us</p>
+ <h2>Started in South Windsor. Built for future engineers anywhere.</h2>
+ <div class="sec">
+  <p>Engineering connects many ways of thinking. Aerospace engineering explores flight and space, mechanical engineering develops machines, and civil engineering shapes the built environment. Electrical, software and environmental engineering connect power, information and sustainable systems.</p>
+  <p>We're building a community where you can explore these fields, exchange ideas, and learn through practical investigation. Our student engineering initiative brings engineering opportunities to students across Connecticut, while our learning pathways are built for future engineers anywhere.</p>
+  <p>Founder and Executive Director: Mrithyunjay Panchanathan.</p>
+ </div>
+</section>
+
+<section class="view wrap" id="our-team">
+ <p class="mono">The people</p>
+ <h2>Our team</h2>
+ <p class="sec">Matrix Engineers is run by students, for students.</p>
+ <div class="grid">
+  <div class="card"><p class="mono">Founder &amp; Executive Director</p><h3>Mrithyunjay Panchanathan</h3><p>Leads Matrix Engineers from South Windsor, Connecticut.</p></div>
+  <div class="card"><p class="mono">Other team members</p><h3>To be updated</h3><p>More team members will be listed here.</p></div>
+ </div>
+</section>
+
+<section class="view wrap" id="pathways">
+ <p class="mono">Learning pathways</p>
+ <h2>Find your field. Build your understanding.</h2>
+ <p class="sec">Explore the foundations, skills, and practical work behind six engineering fields, and see the career pathways each one can open.</p>
+ <div class="grid">
+  <div class="card"><p class="mono">Pathway 1</p><h3>Aerospace</h3><p>Flight and space: airfoil shapes, aerodynamic forces and the thinking behind aircraft design.</p></div>
+  <div class="card"><p class="mono">Pathway 2</p><h3>Mechanical</h3><p>How machines are developed, from simple mechanisms to complete systems.</p></div>
+  <div class="card"><p class="mono">Pathway 3</p><h3>Civil</h3><p>Structures and the built environment around us.</p></div>
+  <div class="card"><p class="mono">Pathway 4</p><h3>Electrical</h3><p>Circuits and power, and how they connect to everything else.</p></div>
+  <div class="card"><p class="mono">Pathway 5</p><h3>Software</h3><p>Information and the code that moves it through engineered systems.</p></div>
+  <div class="card"><p class="mono">Pathway 6</p><h3>Environmental</h3><p>Sustainable systems, from clean water to cleaner design.</p></div>
+ </div>
+</section>
+
+<section class="view wrap" id="build-lab">
+ <p class="mono">Projects</p>
+ <h2>Build Lab</h2>
+ <div class="tbu"><strong>To be updated</strong><span>Student projects will appear here.</span></div>
+</section>
+
+<section class="view wrap" id="horizon">
+ <p class="mono">Events</p>
+ <h2>More than a meeting.</h2>
+ <p class="sec">Planned discussions, hands-on engineering activities, and collaborative studies across engineering fields, along with mentorship from students who have walked the path a little further.</p>
+ <div class="grid">
+  <div class="card"><p class="mono">Get together</p><h3>Discover engineering pathways</h3><p>Share your interests, discuss how different fields approach a challenge, and explore where each career path can lead.</p><span class="status">In planning · Date to be announced</span></div>
+  <div class="card"><p class="mono">Hands-on workshop</p><h3>Explore flight &amp; design</h3><p>Investigate airfoil shapes, aerodynamic forces, and the thinking behind aircraft design.</p><span class="status">In planning · Date to be announced</span></div>
+  <div class="card"><p class="mono">Build session</p><h3>Work across fields</h3><p>Connect structures, electronics, software, and environmental systems in a collaborative design study.</p><span class="status">In planning · Date to be announced</span></div>
+ </div>
+ <p style="margin-top:24px"><a href="#join">Get activity updates →</a></p>
+</section>
+
+<section class="view wrap" id="mentors">
+ <p class="mono">Mentorship</p>
+ <h2>Mentors</h2>
+ <div class="tbu"><strong>To be updated</strong><span>Student mentors will be introduced here.</span></div>
+</section>
+
+<section class="view wrap" id="toolkit">
+ <p class="mono">Resources</p>
+ <h2>Toolkit</h2>
+ <div class="tbu"><strong>To be updated</strong><span>Guides, links and learning materials will appear here.</span></div>
+</section>
+
+<section class="view wrap" id="field-notes">
+ <p class="mono">Blog</p>
+ <h2>Field Notes</h2>
+ <div class="tbu"><strong>To be updated</strong><span>News and write-ups from the club will appear here.</span></div>
+</section>
+
+<section class="view wrap" id="partners">
+ <p class="mono">Sponsors &amp; support</p>
+ <h2>Partners</h2>
+ <div class="tbu"><strong>To be updated</strong><span>Partners, sponsors and ways to support the club will appear here.</span></div>
+</section>
+
+<section class="view wrap" id="faq">
+ <p class="mono">Questions</p>
+ <h2>Frequently asked questions.</h2>
+ <details open><summary>What is Matrix Engineers?</summary><p>Matrix Engineers is a free, student-led engineering education initiative based in South Windsor, Connecticut. We help students explore engineering through hands-on activities, discussions, and career exploration, so future engineers can find the field that fits them.</p></details>
+ <details><summary>Who can join Matrix Engineers?</summary><p>Any student who is curious about engineering can join, including high school students with no prior experience. Students in South Windsor and across Connecticut are welcome, and students elsewhere are invited to express interest too.</p></details>
+ <details><summary>What engineering fields are covered?</summary><p>Six fields: aerospace, mechanical, civil, electrical, software, and environmental engineering. Each learning pathway connects core ideas with practical exercises and career pathways.</p></details>
+ <details><summary>Is Matrix Engineers free?</summary><p>Yes. It is completely free for students, and built to make engineering opportunities accessible to everyone.</p></details>
+ <details><summary>Where is Matrix Engineers located?</summary><p>South Windsor, Connecticut. It is rooted in the local community, while the learning pathways are designed to be useful to students anywhere.</p></details>
+</section>
+
+<section class="view wrap" id="join">
+ <p class="mono">Your next chapter</p>
+ <h2>You don't need all the answers. Just a little curiosity.</h2>
+ <p class="sec">Tell us a little about yourself. Express your interest in Matrix Engineers and hear about free STEM opportunities for students, from engineering clubs to hands-on workshops.</p>
+ <form id="joinform">
+  <label for="n">Your name<input id="n" required autocomplete="name"></label>
+  <label for="e">Email address<input id="e" type="email" required autocomplete="email"></label>
+  <label for="i">What sparks your curiosity?
+   <select id="i"><option>Choose an interest</option><option>Aerospace engineering</option><option>Mechanical engineering</option><option>Civil engineering</option><option>Electrical engineering</option><option>Software engineering</option><option>Environmental engineering</option><option>A little bit of everything</option></select></label>
+  <label for="m">Anything you'd like to share? (optional)<textarea id="m" rows="3"></textarea></label>
+  <button class="btn p" type="submit">Count me in</button>
+  <p class="note">By submitting, you agree to be contacted about club activities. Your details are used for club communication.</p>
+ </form>
+ <p id="msg" hidden></p>
+ <p class="note" style="margin-top:20px">Contact: <span id="mail">matrixengineersinitiative@gmail.com</span> <button class="copy" id="cp" type="button">Copy</button></p>
+</section>
+</main>
+
+<footer>
+ <div><b>Matrix Engineers Lab</b><br>Stay curious. Build together.</div>
+ <div>A free, student-led engineering education initiative based in South Windsor, Connecticut.</div>
+ <div>© 2026 Matrix Engineers</div>
+</footer>
+
+<script>
+(function(){
+  var views=[].slice.call(document.querySelectorAll('.view')),links=[].slice.call(document.querySelectorAll('nav a'));
+  function show(){
+    var id=(location.hash||'#home').slice(1);
+    if(!views.some(function(v){return v.id===id}))id='home';
+    views.forEach(function(v){v.classList.toggle('on',v.id===id)});
+    links.forEach(function(a){a.getAttribute('href')==='#'+id?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current')});
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',show);show();
+  document.getElementById('joinform').addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var m=document.getElementById('msg');m.hidden=false;
+    m.textContent='Thanks, '+document.getElementById('n').value+'. This form is not connected yet, so nothing was sent. Please email matrixengineersinitiative@gmail.com to join.';
+  });
+  document.getElementById('cp').addEventListener('click',function(){
+    var t=document.getElementById('mail');
+    try{navigator.clipboard.writeText(t.textContent).catch(sel)}catch(e){sel()}
+    function sel(){var r=document.createRange();r.selectNodeContents(t);var s=getSelection();s.removeAllRanges();s.addRange(r)}
+  });
+})();
+</script>
+
+</body>
+</html>
